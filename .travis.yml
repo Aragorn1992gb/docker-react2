@@ -2,10 +2,22 @@ language: generic
 sudo: required
 
 services:
-  - docker
+    - docker
 
 before_install:
-  - docker build -t aragorn1992gb/docker-react2 -f Dockerfile.dev .
+    - docker build -t aragorn1992gb/docker-react2 -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true aragorn1992gb/docker-react2 npm run test
+    - docker run -e CI=true aragorn1992gb/docker-react2 npm run test
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "dockerFirstApp"
+    env: "Dockerfirstapp-env"
+    bucket_name: "elasticbeanstalk-us-east-2-853396293241" 
+    bucket_path: "dockerFirstApp"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
