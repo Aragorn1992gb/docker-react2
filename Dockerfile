@@ -19,4 +19,5 @@ FROM ngin
 EXPOSE 80
 
 # Copio sul risultato di "npm run build" deployato in /app/build nella cartella del server nginx
-COPY --from=builder /app/build /usr/share/nginx/html
+#COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
